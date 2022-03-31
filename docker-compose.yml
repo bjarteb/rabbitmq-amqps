@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    container_name: rabbitmq
+    ports:
+      - "5671:5671"
+      - "15672:15672"
+    volumes:
+      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - ./data:/var/lib/rabbitmq
+      - ./log:/var/log/rabbitmq
+      - ./testca:/etc/rabbitmq/certs/testca
+      - ./server:/etc/rabbitmq/certs/server
