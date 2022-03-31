@@ -5,6 +5,10 @@
 # startup service
 docker compose up -d
 
+# create vhost "rs"
+open localhost:15672
+login: guest,guest
+
 # producer
 . env.sh
 python send.py
