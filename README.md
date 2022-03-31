@@ -5,10 +5,13 @@
 # startup service
 docker compose up -d
 
-# produce
+# producer
 . env.sh
 python send.py
 
-# consume
+# consumer
 . env.sh
 python receive.py
+
+# cleanup untracked files and folders
+git clean -d -fx
