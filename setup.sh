@@ -1,6 +1,10 @@
 #!/bin/bash
-set -xeuo pipefail
+set -euo pipefail
 
+# rabbitmq persistence
+mkdir data log
+
+# prepare certificate generation
 mkdir testca
 cd testca
 mkdir certs private
