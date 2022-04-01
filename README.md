@@ -1,26 +1,43 @@
+# RabbitMQ configured with TLS
 
-# generate folders and certificates
+This projects include all the steps to bring up a rabbitmq container configured with TLS in order
+to test client communication over protocol AMQPS
+
+## generate folders and certificates
+```
 ./setup.sh
+```
 
-# startup service
+## startup service
+```
 docker compose up -d
+```
 
-# create vhost "rs"
+## create vhost "rs"
+```
 docker compose exec rabbitmq bash -c "rabbitmqctl add_vhost rs"
 docker compose exec rabbitmq bash -c "rabbitmqctl set_permissions -p rs guest '.*' '.*' '.*'"
+```
 
-# producer
+## producer (python lib 'pika')
+```
 . env.sh
 python send.py
+```
 
-# consumer
+## consumer (python lib 'pika')
+```
 . env.sh
 python receive.py
+```
 
-# Web UI (insecure)
+## Web UI (insecure, username: guest, password: guest)
+```
 open http://localhost:15672
-username: guest
-password: guest
+```
 
-# cleanup untracked files and folders
+## stop and cleanup untracked files and folders
+```
+docker compose down
 git clean -d -fx
+```
