@@ -1,6 +1,14 @@
 #!/bin/bash
 set -euo pipefail
 
+# create environment file for RabbitMQ clients
+cat > env.sh <<EOF
+export RABBITMQ_ENDPOINT="\$(hostname)"
+export RABBITMQ_USERNAME=guest
+export RABBITMQ_PASSWORD=guest
+export RABBITMQ_VHOST=rs
+EOF
+
 # rabbitmq persistence
 mkdir data log
 
@@ -113,11 +121,3 @@ cd ../client
 openssl pkcs12 -export -out client_certificate.p12 -in client_certificate.pem -inkey private_key.pem \
     -passout pass:MySecretPassword
 
-
-# create environment file for RabbitMQ clients
-cat > env.sh <<EOF
-export RABBITMQ_ENDPOINT="\$(hostname)"
-export RABBITMQ_USERNAME=guest
-export RABBITMQ_PASSWORD=guest
-export VHOST=rs
-EOF

@@ -6,7 +6,7 @@ import pika
 amqp_endpoint = os.environ['RABBITMQ_ENDPOINT']
 username = os.environ['RABBITMQ_USERNAME']
 password = os.environ['RABBITMQ_PASSWORD']
-vhost = os.environ['VHOST']
+vhost = os.environ['RABBITMQ_VHOST']
 
 context = ssl.create_default_context(cafile="./testca/ca_certificate.pem")
 context.load_cert_chain("./client/client_certificate.pem", "./client/private_key.pem")
