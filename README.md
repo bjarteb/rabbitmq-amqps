@@ -36,6 +36,12 @@ python receive.py
 open http://localhost:15672
 ```
 
+## Verify certificate
+```
+openssl s_client -connect $(hostname):5671 -showcerts 2> /dev/null | grep 'subject='
+subject=/CN=MacBook-Pro.local/O=server
+```
+
 ## stop and cleanup untracked files and folders
 ```
 docker compose down
