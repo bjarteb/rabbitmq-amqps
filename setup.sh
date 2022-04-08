@@ -4,15 +4,6 @@ set -euo pipefail
 # directory layout
 mkdir data log clients certs || true
 
-# create environment file for RabbitMQ clients
-cat > ./clients/python/env.sh <<EOF
-export RABBITMQ_ENDPOINT="\$(hostname)"
-export RABBITMQ_USERNAME=guest
-export RABBITMQ_PASSWORD=guest
-export RABBITMQ_VHOST=rs
-EOF
-
-
 # prepare certificate generation
 mkdir ./certs/testca
 cd ./certs/testca

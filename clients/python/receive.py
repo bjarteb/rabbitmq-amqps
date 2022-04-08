@@ -8,8 +8,8 @@ username = os.environ['RABBITMQ_USERNAME']
 password = os.environ['RABBITMQ_PASSWORD']
 vhost = os.environ['RABBITMQ_VHOST']
 
-context = ssl.create_default_context(cafile="./testca/ca_certificate.pem")
-context.load_cert_chain("./client/client_certificate.pem", "./client/private_key.pem")
+context = ssl.create_default_context(cafile="./../../certs/testca/ca_certificate.pem")
+context.load_cert_chain("./../../certs/client/client_certificate.pem", "./../../certs/client/private_key.pem")
 
 # login information
 credentials = pika.PlainCredentials(username, password)
