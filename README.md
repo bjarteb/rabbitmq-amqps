@@ -45,9 +45,11 @@ subject=/CN=MacBook-Pro.local/O=server
 ```
 
 ## Run application (java)
+```
 cd clients/java/rabbitmq-demo
 mvn install
 mvn exec:java -Dexec.workingdir="target" -Dexec.mainClass="com.example.rabbitmqdemo.RabbitmqDemoApplication"
+```
 
 ## stop and cleanup untracked files and folders
 ```
