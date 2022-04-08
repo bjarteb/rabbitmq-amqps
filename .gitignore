@@ -1,0 +1,5 @@
+certs
+data
+log
+clients/java/rabbitmq-demo/.idea
+clients/java/rabbitmq-demo/target/*

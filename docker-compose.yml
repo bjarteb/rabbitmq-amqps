@@ -11,5 +11,5 @@ services:
       - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
       - ./data:/var/lib/rabbitmq
       - ./log:/var/log/rabbitmq
-      - ./testca:/etc/rabbitmq/certs/testca
-      - ./server:/etc/rabbitmq/certs/server
+      - ./certs/testca:/etc/rabbitmq/certs/testca
+      - ./certs/server:/etc/rabbitmq/certs/server

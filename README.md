@@ -39,8 +39,15 @@ open http://localhost:15672
 ## Verify certificate
 ```
 openssl s_client -connect $(hostname):5671 -showcerts 2> /dev/null | grep 'subject='
+
+# output
 subject=/CN=MacBook-Pro.local/O=server
 ```
+
+## Run application (java)
+cd clients/java/rabbitmq-demo
+mvn install
+mvn exec:java -Dexec.workingdir="target" -Dexec.mainClass="com.example.rabbitmqdemo.RabbitmqDemoApplication"
 
 ## stop and cleanup untracked files and folders
 ```

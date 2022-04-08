@@ -1,20 +1,21 @@
 #!/bin/bash
 set -euo pipefail
 
+# directory layout
+mkdir data log clients certs || true
+
 # create environment file for RabbitMQ clients
-cat > env.sh <<EOF
+cat > ./clients/python/env.sh <<EOF
 export RABBITMQ_ENDPOINT="\$(hostname)"
 export RABBITMQ_USERNAME=guest
 export RABBITMQ_PASSWORD=guest
 export RABBITMQ_VHOST=rs
 EOF
 
-# rabbitmq persistence
-mkdir data log
 
 # prepare certificate generation
-mkdir testca
-cd testca
+mkdir ./certs/testca
+cd ./certs/testca
 mkdir certs private
 chmod 700 private
 echo 01 > serial
@@ -88,11 +89,10 @@ openssl x509 -in ca_certificate.pem -out ca_certificate.cer -outform DER
 ################################################################################
 # create server certificate
 ################################################################################
-cd ..
+cd ../..
 ls
-# => testca
-mkdir server
-cd server
+mkdir -p ./certs/server
+cd ./certs/server
 openssl genrsa -out private_key.pem 2048
 openssl req -new -key private_key.pem -out req.pem -outform PEM \
     -subj /CN=$(hostname)/O=server/ -nodes
@@ -106,14 +106,13 @@ openssl pkcs12 -export -out server_certificate.p12 -in server_certificate.pem -i
 ################################################################################
 # create client certificate
 ################################################################################
-cd ..
+cd ../..
 ls
-# => server testca
-mkdir client
-cd client
+mkdir ./certs/client
+cd ./certs/client
 openssl genrsa -out private_key.pem 2048
 openssl req -new -key private_key.pem -out req.pem -outform PEM \
-    -subj /CN=$(hostname)/O=client/ -nodes
+    -subj /CN=localhost/O=client/ -nodes
 cd ../testca
 openssl ca -config openssl.cnf -in ../client/req.pem -out \
     ../client/client_certificate.pem -notext -batch -extensions client_ca_extensions
@@ -121,3 +120,16 @@ cd ../client
 openssl pkcs12 -export -out client_certificate.p12 -in client_certificate.pem -inkey private_key.pem \
     -passout pass:MySecretPassword
 
+
+################################################################################
+# import server certifcate to keystore for java
+################################################################################
+cd ..
+
+keytool \
+  -import \
+  -noprompt \
+  -storepass changeit \
+  -alias server1 \
+  -file server/server_certificate.pem \
+  -keystore ./my-truststore.jks
