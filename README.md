@@ -8,6 +8,11 @@ to test client communication over protocol AMQPS
 ./setup.sh
 ```
 
+## make sure rabbitmq can read the certificates
+```
+sudo chown -R 999 certs/
+```
+
 ## startup service
 ```
 docker compose up -d
