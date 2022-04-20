@@ -52,6 +52,7 @@ subject=/CN=MacBook-Pro.local/O=server
 ## Run application (java)
 ```
 cd clients/java/rabbitmq-demo
+export JAVA_HOME=/take/me/to/java/home
 mvn install
 mvn exec:java -Dexec.workingdir="target" -Dexec.mainClass="com.example.rabbitmqdemo.RabbitmqDemoApplication"
 ```
